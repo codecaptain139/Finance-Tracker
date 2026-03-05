@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker</title>
+    <link rel="stylesheet" href="financestyle.css">
+</head>
+<body>
+    <div class="container">
+        <header>Finance Tracker</header>
+
+        <section class="summary">
+
+            <div class="card">
+                <p>Balance</p>
+                <span class="card-value" id="balance-value">₹0</span>
+            </div>
+
+            <div class="card">
+                <p>Income</p>
+                <span class="card-value" id="income-value">₹0</span>
+            </div>
+
+            <div class="card">
+                <p>Expense</p>
+                <span class="card-value" id="expense-value">₹0</span>
+            </div>
+
+        </section>
+
+        <section class="transaction">
+
+            <div class="form-section">
+                
+                <form id="transaction-form">
+                    
+                    <div class="input-group">
+                        <label for="type">Type</label>
+                        <select name="type" id="type" required>
+                            <option value="">Please select an option</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" name="amount" id="amount" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="category">Category</label>
+                        <input type="text" name="category" id="category" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="date">Date</label>
+                        <input type="date" name="date" id="date" required>
+                    </div>
+
+                    <button type="submit">Add Transaction</button>
+                </form>
+            </div>
+
+            <div class="list-section">
+                <div id="transaction-list">
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+    <script src="financescript.js"></script>
+</body>
+</html>
