@@ -1,4 +1,14 @@
+function saveTransaction(){
+    localStorage.setItem("transactions", JSON.stringify(transactions))
+}
+
 let transactions = [];
+
+let storedTransactions = localStorage.getItem("transactions");
+
+if(storedTransactions){
+    transactions = JSON.parse(storedTransactions);
+}
 
 const transactionForm = document.getElementById("transaction-form");
 const typeInput = document.getElementById("type");
@@ -13,7 +23,7 @@ const incomeValue = document.getElementById("income-value");
 const expenseValue = document.getElementById("expense-value");
 
 transactionForm.addEventListener("submit", function(event) {
-    event.preventDefault(); //This is to stop the by default submission behaviour of form.
+    event.preventDefault(); //In form cases the browser default behaviour is to send the GET/POST request and reload the page so to stop this behaviour we use preventDeafult method and this event object we get from the browser whenever any event gets fire.
 
     const selectValue = typeInput.value;
     const amountValue = Number(amountInput.value); //here we use number method because .value methods gives value in string data types always.
@@ -37,12 +47,13 @@ transactionForm.addEventListener("submit", function(event) {
 
 
     renderTransactions();
+    saveTransaction();
     updateSummary();
 });
 
 function formatDate(dateString){
-    const dateObj = new Date(dateString);
-    return dateObj.toLocaleDateString();
+    const dateObj = new Date(dateString); //This new Date() creats a date object which is not in a human readable form it look like this "[year:2026, month:3, day:22]".
+    return dateObj.toLocaleDateString(); //then we use toLocaleDateString method which coverts the object into human readable form like this "22/03/2026".
 }
 
 function renderTransactions() {
@@ -95,6 +106,7 @@ function renderTransactions() {
             })
 
             renderTransactions();
+            saveTransaction();
             updateSummary();
         })
 
@@ -119,6 +131,10 @@ function updateSummary() {
     balanceValue.textContent = "₹" + balance;
     incomeValue.textContent = "₹" + totalIncome;
     expenseValue.textContent = "₹" + totalExpense;
+
+    //Here we remove and also add the class so prevent showing the positive balance in red color but instead of writing this 4 lines of code you can also use toggle here toggle is a method in which a second parameter takes a condition in case of condition gets true then your class gets add and is case of false it gets removed.
+
+    // balanceValue.classList.toggle("negative-balance", balance < 0);
 
     if(balance < 0) {
         balanceValue.classList.add("negative-balance");
